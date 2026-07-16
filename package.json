@@ -1,5 +1,5 @@
 {
-  "name": "paytm-e2e",
+  "name": "payquick",
   "private": true,
   "scripts": {
     "build": "turbo run build",
