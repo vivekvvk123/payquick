@@ -1,9 +1,28 @@
+"use client";
+import { Button } from "@repo/ui/button";
+import { useAppSelector, useAppDispatch } from "@repo/store";
+import {increment, decrement} from "@repo/store";
 
-import {Button} from "@repo/ui/button";
+
 export default function Home() {
+
+  const dispatch = useAppDispatch()
+  const count = useAppSelector((state: any) => state.counter.value)
+
+  function handleIncrement() {
+    dispatch(increment())
+  }
+
+  function handleDecrement() {
+    dispatch(decrement())
+  }
+
   return (
     <div className="text-center">
       <div className="">hello user-app</div>
+      <button onClick={handleIncrement}>+</button>
+      <p>Count:{count}</p>
+      <button onClick={handleDecrement}>-</button>
     </div>
 
   );
