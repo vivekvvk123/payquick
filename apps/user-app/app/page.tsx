@@ -1,30 +1,28 @@
 "use client";
-import { Button } from "@repo/ui/button";
-import { useAppSelector, useAppDispatch } from "@repo/store";
-import {increment, decrement} from "@repo/store";
+
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Appbar} from "@repo/ui/Appbar";
+import { SessionProvider } from "next-auth/react";
+
 
 
 export default function Home() {
+  return <SessionProvider>
+    <RealHome />
 
-  const dispatch = useAppDispatch()
-  const count = useAppSelector((state: any) => state.counter.value)
+  </SessionProvider>
 
-  function handleIncrement() {
-    dispatch(increment())
-  }
+}
 
-  function handleDecrement() {
-    dispatch(decrement())
-  }
-
+function RealHome(){
+  const session = useSession();
   return (
-    <div className="text-center">
-      <div className="">hello user-app</div>
-      <button onClick={handleIncrement}>+</button>
-      <p>Count:{count}</p>
-      <button onClick={handleDecrement}>-</button>
+    <div>
+      {/* <div className="">hello user-app</div> */}
+      <Appbar onSignin={signIn} onSignout={signOut}  user={session.data?.user}/>
+  
     </div>
-
+  
   );
 }
 
