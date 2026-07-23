@@ -1,29 +1,17 @@
-"use client";
+import { redirect } from "next/navigation";
+import { authOptions } from "./lib/auth";
+import { getServerSession } from "next-auth/next";
 
-import { signIn, signOut, useSession } from "next-auth/react";
-import { Appbar} from "@repo/ui/Appbar";
-import { SessionProvider } from "next-auth/react";
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  console.log("session--->", session);
+  if (session?.user) {
+    redirect('/dashboard');
+  }
+  else {
+    redirect('/api/auth/signin');
+  }
 
-
-
-export default function Home() {
-  return <SessionProvider>
-    <RealHome />
-
-  </SessionProvider>
-
-}
-
-function RealHome(){
-  const session = useSession();
-  return (
-    <div>
-      {/* <div className="">hello user-app</div> */}
-      <Appbar onSignin={signIn} onSignout={signOut}  user={session.data?.user}/>
-  
-    </div>
-  
-  );
 }
 
 

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import {StoreProvider} from "@repo/store"
+import { AppbarClient } from "../components/AppbarClient";
+import { MainProvider } from "../components/MainProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,10 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <StoreProvider>
-          {children}
-        </StoreProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-neutral-950 text-white min-h-screen relative`}>
+        <div className="fixed inset-0 -z-10 h-full w-full bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] pointer-events-none" />
+        <MainProvider>
+          <AppbarClient />
+            {children}
+        </MainProvider>
       </body>
     </html>
   );

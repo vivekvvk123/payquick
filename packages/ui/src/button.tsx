@@ -9,10 +9,10 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-export const Button = ({ children, appName, onClick }: ButtonProps) => {
+export const Button = ({ children, className, onClick }: ButtonProps) => {
   return (
     <button
-      className="cursor-pointer border rounded-md p-1 px-2 hover:bg-zinc-700"
+      className={`cursor-pointer border border-gray-700 rounded-3xl hover:bg-zinc-700 ${className || ""}`}
       onClick={onClick}
     >
       {children}
