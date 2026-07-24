@@ -12,7 +12,7 @@ interface ButtonProps {
 export const Button = ({ children, className, onClick }: ButtonProps) => {
   return (
     <button
-      className={`cursor-pointer border border-gray-700 rounded-3xl hover:bg-zinc-700 ${className || ""}`}
+      className={`cursor-pointer border border-gray-700 rounded-lg hover:bg-zinc-800 p-2 ${className || ""}`}
       onClick={onClick}
     >
       {children}
