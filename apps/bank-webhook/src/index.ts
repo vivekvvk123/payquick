@@ -1,12 +1,18 @@
+import "dotenv/config"; // loads .env before Prisma initializes
 import express from "express";
 import prisma from "@repo/db/prisma";
 const app = express();
+app.use(express.json());
 
 const PORT = 3003;
 
 // HDFC bank will hit this endpoint when someone pays to HDFC bank
-app.post("/hdfcWebhook", async (req,res) => {
-    const paymentInformation = {
+app.post("/hdfcWebhook", async (req, res) => {
+    const paymentInformation: {
+        token: string;
+        userId: string;
+        amount: string;
+    } = {
         token: req.body.token,
         userId: req.body.user_identifier,
         amount: req.body.amount
@@ -22,11 +28,11 @@ app.post("/hdfcWebhook", async (req,res) => {
                 },
                 data: {
                     amount: {
-                        increment:Number(paymentInformation.amount)
+                        increment:Number(paymentInformation.amount) * 100
                     }
                 }
             }),
-    
+
             prisma.onRampTransaction.update({
                 where:{
                     token: paymentInformation.token
@@ -47,9 +53,9 @@ app.post("/hdfcWebhook", async (req,res) => {
         console.error(err);
         res.status(411).json({
             message: "Error while processing webhook"
-        })  
+        })
     }
-    
+
 })
 
 app.listen(PORT, () => {
