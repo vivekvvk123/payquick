@@ -20,7 +20,7 @@ export function OnRampTransactions({transactions}:{
                     </div>
                 </div>
                 <div className="flex flex-col justify-center">
-                    + Rs {txn.amount / 100}
+                    + Rs {txn.amount / 100} {txn.status === "Success" ? "✅" : "⚠️"} 
                 </div>
 
             </div>)}

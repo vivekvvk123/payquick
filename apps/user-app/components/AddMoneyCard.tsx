@@ -9,12 +9,14 @@ import createOnRampTransaction from "../app/lib/action/createOnRamptxn";
 
 const SUPPORTED_BANKS = [
     {
-        name: "SBI Bank",
-        redirectUrl: "https://onlinesbi.sbi.bank.in/sbicollect/"
-    },{
         name: "HDFC Bank",
         redirectUrl: "https://now.hdfc.bank.in/"
-    },{
+    },
+    {
+        name: "SBI Bank",
+        redirectUrl: "https://onlinesbi.sbi.bank.in/sbicollect/"
+    },
+    {
         name: "Axis Bank",
         redirectUrl: "https://www.axis.bank.in/"
     }
