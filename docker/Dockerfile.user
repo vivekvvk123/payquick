@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY apps ./apps
+COPY packages ./packages
+
+RUN pnpm install
+
+RUN pnpm run build
+
+CMD ["pnpm", "--filter", "user-app", "run", "start"]
