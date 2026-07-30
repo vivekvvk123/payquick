@@ -25,4 +25,16 @@ jobs:
           file: ./docker/Dockerfile.user
           push: true
           tags: vivekvvk123/docker-cicd:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo docker pull vivekvvk123/docker-cicd:latest
+            sudo docker stop user-app || true
+            sudo docker rm user-app || true
+            sudo docker run -d --name user-app -p 3005:3000 vivekvvk123/docker-cicd:latest
         
