@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@repo/ui/button";
-import { SessionProvider, useSession, signIn, signOu } from "next-auth/react";
+import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
 
 
 export default function Home() {
@@ -18,9 +18,9 @@ function RealHome() {
     
     <div className="text-center bg-red-500">
       <h1 className="text-3xl font-bold underline">Hello merchant-app</h1>
-      <button onClick={()=>{session.status === "authenticated" ? signOut() : signIn()}}>
+      <Button onClick={()=>{session.status === "authenticated" ? signOut() : signIn()}}>
         {session.status === "authenticated" ? "Signout" : "Signin"}
-      </button>
+      </Button>
     </div>
   )
 }
