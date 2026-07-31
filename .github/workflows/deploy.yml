@@ -32,9 +32,18 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: DATABASE_URL,JWT_SECRET,NEXTAUTH_URL
           script: |
             sudo docker pull vivekvvk123/docker-cicd:latest
             sudo docker stop user-app || true
             sudo docker rm user-app || true
-            sudo docker run -d --name user-app -p 3005:3000 vivekvvk123/docker-cicd:latest
+            sudo docker run -d --name user-app -p 3005:3000 \
+              -e DATABASE_URL="$DATABASE_URL" \
+              -e JWT_SECRET="$JWT_SECRET" \
+              -e NEXTAUTH_URL="$NEXTAUTH_URL" \
+              vivekvvk123/docker-cicd:latest
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
         
