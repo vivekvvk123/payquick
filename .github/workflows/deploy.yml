@@ -37,6 +37,7 @@ jobs:
             sudo docker pull vivekvvk123/docker-cicd:latest
             sudo docker stop user-app || true
             sudo docker rm user-app || true
+            sudo docker image prune -f
             sudo docker run -d --name user-app -p 3005:3000 --restart unless-stopped \
               -e DATABASE_URL="$DATABASE_URL" \
               -e JWT_SECRET="$JWT_SECRET" \
