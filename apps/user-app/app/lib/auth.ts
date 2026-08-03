@@ -39,6 +39,16 @@ export const authOptions = {
                             password: hashedPassword
                         }
                     })
+
+                    // Initialize the Balance record for the new user
+                    await prisma.balance.create({
+                        data: {
+                            userId: newUser.id,
+                            amount: 0,
+                            locked: 0
+                        }
+                    })
+
                     return {
                         id: newUser.id.toString(),
                         name: newUser.name,
